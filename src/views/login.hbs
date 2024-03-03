@@ -1,0 +1,31 @@
+<h1>Login</h1>
+
+<form action="/login" method="post">
+  <input type="text" name="email" placeholder="email">
+  <input type="password" name="password" placeholder="password">
+  <button type="submit">Sign up</button>
+</form>
+
+<p>Not registered? <a href="/register">Register</a></p>
+<p><a href="/">Home</a></p>
+
+<script type='module'>
+  import axios from 'https://cdn.jsdelivr.net/npm/axios@1.6.7/+esm';
+
+  // Función para iniciar sesión y capturar el token JWT
+  const login = async (credentials) => {
+    try {
+      const response = await axios.post('http://localhost:3000/login', credentials);
+      const token = response.data.token;
+
+      // Almacena el token en el almacenamiento local (o en una cookie)
+      localStorage.setItem('token', token);
+
+      return token;
+    } catch (error) {
+      console.error('Error al iniciar sesión:', error);
+      throw error;
+    }
+  };
+
+</script>
